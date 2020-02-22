@@ -9,13 +9,15 @@ app.get("/", (req, res, next) => {
 });
 
 mongoose
-  .connect("mongodb://localhost/quizz", {
+  .connect(process.env.MONGO_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
   .then(() => {
-    app.listen(process.env.PORT || 3000, () => {
-     console.log("Server is running on port 3000");
-    })    
+ 
   })
   .catch(console.log);
+
+  app.listen(process.env.PORT || 3000, () => {
+    console.log("Server is running on port 3000");
+   })   
