@@ -18,6 +18,9 @@ const userSchema = new Schema({
       },
       message: "sexo não existente"
     }
+  },
+  course: {
+    name: String
   }
 });
 
