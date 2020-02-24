@@ -10,6 +10,7 @@ const app = express();
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
+//session settings
 app.use(
   session({
     secret: process.env.SECRET_SESSION,
@@ -38,7 +39,7 @@ mongoose
   })
   .then(() => {
     app.listen(process.env.PORT || 3000, () => {
-      console.log("Server is running on port 3000");
+      console.log("Server is running!");
     });
   })
   .catch(console.log);

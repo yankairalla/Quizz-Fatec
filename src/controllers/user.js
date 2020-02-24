@@ -1,20 +1,20 @@
 
 const User = require('../models/user');
 
+
+
 exports.getFormUser = async (req, res, next) => {
-    const user = await User.find();
-    // console.log(user);
+    if(req.session.user) {
+        console.log(req.session.user);
+    } else {
+        console.log('Olá estranho!');
+    }
     res.render('form/user');
 };
 
 exports.postFormUser = async (req, res, next) => {
     const { name, age, sex } = req.body
-    try {
-        const user = new User({ name, age, sex}); 
-        await user.save();
-    } catch (e) {
-        console.log(e.message);
-    }
+    req.session.user = { name, age, sex };
 
     res.redirect('/');
 }
