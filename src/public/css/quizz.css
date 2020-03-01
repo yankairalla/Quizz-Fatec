@@ -1,0 +1,68 @@
+/*ESTILO DE TESTE*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+	font-family: 'Roboto';
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+		
+}
+
+h1 {
+	color: #a02c2c;
+	font-weight: 200;
+	padding-bottom: 30px;
+    text-decoration: underline;  
+    line-height: 50px;
+    padding-top: 30px;
+}
+
+div#context{
+    margin-top: 40px;
+    padding: 20px;
+}
+div.answer-wrapper{
+    line-height: 50px;
+    font-size: 18px;
+}
+
+div.answer-wrapper p {
+    margin-left: 30px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+input[type=submit]{
+    background-color: #a02c2c;
+    color: white;
+    font-size: 20px;
+    margin: 40px auto;
+    cursor: pointer;
+    border: 0px;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    outline: 0;
+}
+
+.imglogo {
+	padding-left: 60px;
+	padding-top: 15px;
+}
+
+.navbar-header {
+	background-color: black;
+	padding: 0;
+	margin: 0;
+	height: 80px;
+	width: 100%;
+}

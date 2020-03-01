@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -27,9 +28,6 @@ app.use(express.static(path.join(__dirname, "public")));
 const quizzRoutes = require("./routes/quizz");
 app.use(quizzRoutes);
 
-app.get("/", (req, res, next) => {
-  res.send("<h1>Oi</h1>");
-});
 
 // database connection
 mongoose
