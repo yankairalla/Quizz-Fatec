@@ -1,8 +1,5 @@
-<% include('includes/head.ejs') %>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
+<%- include('includes/head.ejs') %>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="/js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"> </script>
 </head>
 
 <body>
@@ -10,17 +7,70 @@
 	<div class="navbar-header">
 		<img class="imglogo" src="imagens/logo_fatec.png">
 	</div>
+	<% if(!result) { %>
+	<div class="titulo">
+	<h1> Qual curso mais combina com você? </h1>
+	</div>
 
-<div class="titulo">
-<h1> Qual curso mais combina com você? </h1>
-</div>
+	<div class="descrição">
+		O seu sonho é entrar na Fatec mas não sabe qual curso fazer? Que tal descobrir? <br>
+		Nossos cursos são:<strong>Análise e Desenvolvimento de Sistemas</strong> , 
+						<strong>Sistemas para Internet</strong>, 
+						<strong>Logística</strong>, <strong>Gestão Portuária</strong> e <strong>Gestão Empresarial</strong>. <br>
+		<button type="button" id="alerta" class="btn" data-toggle="modal" data-target="#modalExemplo">
+			Faça o teste e descubra !
+		  </button>
 
-<div class="descrição">
-	 O seu sonho é entrar na Fatec mas não sabe qual curso fazer? Que tal descobrir? <br>
-	Nossos cursos são: Análise e Desenvolvimento de Sistemas, Sistemas para Internet, Logística, Gestão Portuária e Gestão Empresarial. <br>
-	<button id="alerta"> Faça o teste e descubra ! </button>
+	</div>
+  <!-- Modal -->
+  <form method="POST" action="/">
+  <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Dados do usuario</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<div class="form-group">
+				<label for="nome">Nome: </label>
+				<input type="nome" class="form-control" id="nome" name="name" placeholder="Nome Completo">
+			  </div>
+			  <div class="form-group">
+				<label for="idade">Idade:</label>
+				<input type="number" name="age" class="form-control" id="idade" placeholder="">
+			  </div>
+			  <fieldset class="form-group">
+				  <legend class="col-form-label">Sexo:</legend>
+			  <div class="form-check">
+				<input class="form-check-input" type="radio" name="sex" value="masc" id="masc">
+				<label class="form-check-label" for="masc">
+				  Masculino
+				</label>
+			  </div>
+			  <div class="form-check">
+				<input class="form-check-input" type="radio" name="sex" value="fem" id="fem">
+				<label class="form-check-label" for="fem">
+				  Feminino
+				</label>
+			  </div>
+			</fieldset>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+		  <button type="submit" class="btn">Enviar</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</form>
+	<% } else { %>
+		<h1>Parabens!, você concluiu o quizz</h1>
 
-</div>
+		<p><%=result %></p>
 
+	<% } %>
 
-<% include('includes/end.ejs') %> 
+<%- include('includes/end.ejs') %> 

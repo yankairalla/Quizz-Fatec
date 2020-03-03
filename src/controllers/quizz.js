@@ -1,12 +1,25 @@
-const questions = require("../question");
 
 const Quizz = require("../models/quizz");
 
-exports.getIndex = async (req, res, next) => {
-  res.render("index.ejs");
+exports.getIndex = (req, res, next) => {
+  if(!req.session.result) {
+    return res.render("index.ejs", {result: false});
+  }
+  res.render('index.ejs', {result: req.session.result})
+  req.session.destroy();
 };
 
+exports.postUser = async (req, res, next) => {
+  const { name, age, sex } = req.body;
+  req.session.user = { name, age, sex };
+  console.log(req.session.user)
+  res.redirect('/quizz');
+}
+
 exports.getQuizz = async (req, res, next) => {
+  if(!req.session.user) {
+    res.redirect('/')
+  }
   const random = (start, end) => {
     const arr = [];
     for (let count = start - 1; count < end; count++) {
@@ -54,7 +67,7 @@ exports.postQuizz = (req, res, next) => {
       }
       return object;
     }, {}); //se tirar o objeto vazio não o retorno será apenas uma string
-    generateResult(qtd);
+    return generateResult(qtd);
   };
 
   const generateResult = result => {
@@ -78,24 +91,19 @@ exports.postQuizz = (req, res, next) => {
       LOG: "Logística"
     };
 
-    console.log(`Seu resultado foi: ${cursos[bigger[1]]} com 
-    ${getPercentage(bigger[0], 5)}% de compatibilidade. `)
+    const getPercentage = (val,qtdQuestions) => {
+      return Math.ceil((100 * val) / qtdQuestions);
+    };
 
-  //   alert("Parabéns, você concluiu o Quizz!");
-  //   alert(
-  //     `Seu resultado foi: ${cursos[bigger[1]]} com ${getPercentage(
-  //       bigger[0]
-  //     )}% de compatibilidade. `
-  //   );
-  //   setTimeout(function() {
-  //     window.location.replace("index.html");
-  //   }, 3000);
+    const resultQuizz = `Seu resultado foi: <strong>${cursos[bigger[1]]} </strong> com 
+    <strong>${getPercentage(bigger[0], 5)}%</strong> de compatibilidade. `;
+
+    return resultQuizz;
   };
 
-  const getPercentage = (val,qtdQuestions) => {
-    return Math.ceil((100 * val) / qtdQuestions);
-  };
-  checkAnswers(req.body);
-
+  
+  // console.log(checkAnswers(req.body))
+  req.session.result = checkAnswers(req.body);
+  // console.log(req.session.result)
   res.redirect('/');
 };
