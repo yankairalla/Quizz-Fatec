@@ -13,4 +13,6 @@ router.post('/user', userController.postFormUser);
 
 router.get('/quizz', quizzController.getQuizz);
 
+router.post('/quizz', quizzController.postQuizz);
+
 module.exports = router;
