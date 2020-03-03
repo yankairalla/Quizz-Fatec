@@ -1,0 +1,25 @@
+<% include('includes/head.ejs') %>
+<link rel="stylesheet" href="css/quizz.css">
+</head>
+
+<body>
+    <div class="navbar-header">
+		<img class="imglogo" src="imagens/logo_fatec.png">
+    </div>
+        <h1>Questionario Fatec</h1> 
+    <form id="form">
+        <div id="context">
+            <% questionary.map((question) => { %>
+                <h1><%=question.title%></h1>
+                <% question.answers.map((answer) => { %>
+                        <input type="radio" value="<%=answer.course %>">
+                        <label for="<%=answer.course %>"><%=answer.answer_text %></label>
+                    <% }) %>    
+            <% }) %>
+        </div>
+        <input id="submit" type="submit" value="Gerar Resultado">
+    </form>
+
+    <script src="js/functions.js"></script>
+
+<% include('includes/end.ejs') %>
