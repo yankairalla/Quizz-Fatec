@@ -1,24 +1,26 @@
-
+const User = require("../models/user");
 const Quizz = require("../models/quizz");
 
 exports.getIndex = (req, res, next) => {
-  if(!req.session.result) {
-    return res.render("index.ejs", {result: false});
+  if (!req.session.result) {
+    return res.render("index.ejs", { result: false });
+  } else {
+    res.render("index.ejs", { result: req.session.result });
+    req.session.destroy();
   }
-  res.render('index.ejs', {result: req.session.result})
-  req.session.destroy();
+
 };
 
 exports.postUser = async (req, res, next) => {
   const { name, age, sex } = req.body;
   req.session.user = { name, age, sex };
-  console.log(req.session.user)
-  res.redirect('/quizz');
-}
+  console.log(req.session.user);
+  res.redirect("/quizz");
+};
 
 exports.getQuizz = async (req, res, next) => {
-  if(!req.session.user) {
-    res.redirect('/')
+  if (!req.session.user) {
+    res.redirect("/");
   }
   const random = (start, end) => {
     const arr = [];
@@ -45,17 +47,18 @@ exports.getQuizz = async (req, res, next) => {
         }))
       };
       return questionary.push(obj);
-    })
+    });
     res.render("quizz.ejs", {
       questionary
     });
   };
 
   quizzes = await Quizz.find();
+  console.log(quizzes);
   generateQuizz(quizzes);
 };
 
-exports.postQuizz = (req, res, next) => {
+exports.postQuizz = async (req, res, next) => {
   const checkAnswers = param => {
     param = Object.values(param).map(e => e.split("_")[0]); // limpar as siglas dos cursos
     let qtd = param.reduce(function(object, item) {
@@ -70,7 +73,7 @@ exports.postQuizz = (req, res, next) => {
     return generateResult(qtd);
   };
 
-  const generateResult = result => {
+  const generateResult = async result => {
     let bigger = [0, "curso"];
 
     let baseObj = ["ADS", "SI", "GE", "GP", "LOG"];
@@ -91,19 +94,24 @@ exports.postQuizz = (req, res, next) => {
       LOG: "Logística"
     };
 
-    const getPercentage = (val,qtdQuestions) => {
+    const getPercentage = (val, qtdQuestions) => {
       return Math.ceil((100 * val) / qtdQuestions);
     };
 
-    const resultQuizz = `Seu resultado foi: <strong>${cursos[bigger[1]]} </strong> com 
+    const resultQuizz = `Seu resultado foi: <strong>${
+      cursos[bigger[1]]
+    } </strong> com 
     <strong>${getPercentage(bigger[0], 5)}%</strong> de compatibilidade. `;
 
+    const { name, age, sex } = req.session.user;
+    const user = new User({ name, age, sex, course: { name: cursos[bigger[1]] } });
+
+    await user.save();
+
+    
     return resultQuizz;
   };
-
   
-  // console.log(checkAnswers(req.body))
-  req.session.result = checkAnswers(req.body);
-  // console.log(req.session.result)
-  res.redirect('/');
+  req.session.result = await checkAnswers(req.body);
+  res.redirect("/");
 };
