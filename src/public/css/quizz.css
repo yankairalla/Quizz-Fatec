@@ -17,9 +17,9 @@ html, body {
 h1 {
 	color: #a02c2c;
 	font-weight: 200;
-	padding-bottom: 30px;
+	padding-bottom: 15px;
     line-height: 50px;
-    padding-top: 30px;
+    padding-top: 15px;
 }
 
 div#context{
