@@ -1,25 +1,33 @@
 <%- include('includes/head.ejs') %>
 <link rel="stylesheet" href="css/quizz.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
     <div class="navbar-header">
-		<img class="imglogo" src="imagens/logo_fatec.png">
+        <a href="/"><img class="imglogo" src="imagens/logo_fatec.png"></a>
+
     </div>
-        <h1>Questionario Fatec</h1> 
+    <div class="content">
+        <h1 class="main-title">Questionario Fatec</h1> 
     <form id="form" method="POST" action="/quizz">
         <div id="context">
             <% questionary.map((question, index) => { %>
-                <h1><%=question.title%></h1>
+                <h2 class="title"><%=question.title%></h2>
+                <hr>
                 <% question.answers.map((answer) => { %>
+                    <div class="box-question">
                         <input type="radio" value="<%=answer.course %>" id="<%=answer.course %>" name="question_<%=index%>">
                         <label for="<%=answer.course %>"><%=answer.answer_text %></label>
+                    </div>
                     <% }) %>    
             <% }) %>
         </div>
-        <input id="submit" type="submit" value="Ver Resultado">
+        <button id="submit" type="submit" class="btn btn-submit">Ver Resultado</button>
     </form>
+    </div>
+
 
 
 <%- include('includes/end.ejs') %>
