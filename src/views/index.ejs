@@ -16,8 +16,7 @@
 					
 					<div class="descrição">
 						Você gosta de programação?, você quer entrar na Fatec mas não consegue se decidir entre 
-						<strong>Análise e Desenvolvimento de Sistemas</strong> e <strong>Sistemas para Internet</strong>
-						 ?. <br>
+						<strong>Análise e Desenvolvimento de Sistemas</strong> e <strong>Sistemas para Internet</strong>?. <br>
 						<button type="button" id="alerta" class="btn" data-toggle="modal" data-target="#modalExemplo">
 							Faça o teste e descubra !
 						  </button>
@@ -72,9 +71,31 @@
 				<div class="main-description result">
 					<h1>Parabens!, você concluiu o quizz</h1>
 		
-					<p><%-result %></p>	
+					<p><%-result.resultQuizz %></p>
+					
+					<% if(result.curso === 'Análise e Desenvolvimento de Sistemas') { %>
+						<h2><%=result.curso%></h2> 
+						<p> O Tecnólogo em Análise e Desenvolvimento de Sistemas analisa, projeta, documenta, 
+							especifica, testa, implanta e mantém sistemas computacionais de informação. 
+							Esse profissional trabalha, também, com ferramentas computacionais, equipamentos de informática 
+							e metodologia de projetos na produção de sistemas. Raciocínio lógico, emprego de linguagens de 
+							programação e de metodologias de construção de projetos, preocupação com a qualidade, usabilidade, 
+							robustez, 
+							integridade e segurança de programas computacionais são fundamentais à atuação desse profissional.
+						</p>
+					<% } else { %>
+						<h2><%=result.curso%></h2> 
+						<p>
+							O tecnólogo formado neste curso ocupa-se do desenvolvimento de programas, 
+							de interfaces e aplicativos, do comércio e do marketing eletrônicos, 
+							além de sítios e portais para internet e intranet. Gerencia projetos de sistemas, 
+							inclusive com acesso a banco de dados, desenvolvendo projetos de aplicações para a rede mundial 
+							de computadores e integra mídias nos sítios da internet. Atua com tecnologias emergentes como 
+							computação móvel, redes sem fio e sistemas distribuídos. Cuidar da implantação, atualização, 
+							manutenção e segurança dos sistemas para internet também são suas atribuições.
+						</p>
 				</div>
-
+				<% }%>
 			<% } %>		
 	</div>
 

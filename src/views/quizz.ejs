@@ -10,7 +10,7 @@
 
     </div>
     <div class="content">
-        <h1 class="main-title">Questionario Fatec</h1> 
+        <h1 class="main-title">Questionário Fatec</h1> 
     <form id="form" method="POST" action="/quizz">
         <div id="context">
             <% questionary.map((question, index) => { %>
@@ -18,7 +18,7 @@
                 <hr>
                 <% question.answers.map((answer) => { %>
                     <div class="box-question">
-                        <input type="radio" value="<%=answer.course %>" id="<%=answer.course %>" name="question_<%=index%>">
+                        <input class="radio" type="radio" value="<%=answer.course %>" id="<%=answer.course %>" name="question_<%=index%>">
                         <label for="<%=answer.course %>"><%=answer.answer_text %></label>
                     </div>
                     <% }) %>    

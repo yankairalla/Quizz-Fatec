@@ -109,7 +109,7 @@ exports.postQuizz = async (req, res, next) => {
     await user.save();
 
     
-    return resultQuizz;
+    return  { resultQuizz, curso: cursos[bigger[1]] };
   };
   
   req.session.result = await checkAnswers(req.body);
